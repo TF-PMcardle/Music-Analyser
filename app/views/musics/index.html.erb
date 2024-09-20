@@ -1,0 +1,10 @@
+<h1>Uploaded Music</h1>
+
+<% @musics.each do |music| %>
+  <div>
+    <h2><%= music.title %> by <%= music.artist %></h2>
+    <%= link_to 'Download', rails_blob_path(music.file, disposition: 'attachment') %>
+  </div>
+<% end %>
+
+<%= link_to 'Upload Music', new_music_path %>

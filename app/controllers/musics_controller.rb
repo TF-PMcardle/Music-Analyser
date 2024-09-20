@@ -5,6 +5,10 @@ class MusicsController < ApplicationController
     @musics = Music.all
   end
 
+  def show
+    @music = Music.find(params[:id])
+  end
+
   def new
     @music = Music.new
   end
@@ -18,6 +22,26 @@ class MusicsController < ApplicationController
     end
   end
 
+  def edit
+    @music = Music.find(params[:id])
+  end
+
+  def update
+    @music = Music.find(params[:id])
+    if @music.update(music_params)
+      flash[:notice] = "Music was successfully updated."
+      redirect_to musics_path
+    else
+      render :edit
+    end
+  end
+
+  def destroy
+    @music = Music.find(params[:id])
+    @music.destroy
+    flash[:notice] = "Song deleted successfully."
+    redirect_to musics_path
+  end
   private
 
   def music_params

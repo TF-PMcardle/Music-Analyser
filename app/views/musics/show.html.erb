@@ -1,0 +1,7 @@
+<h1><%= @music.title %></h1>
+<p>Uploaded by: <%= @music.user.name %></p>
+<p>File: <%= link_to 'Download', rails_blob_path(@music.file, disposition: 'attachment') %></p>
+
+<%= link_to 'Edit', edit_music_path(@music), class: 'btn btn-warning' %>
+<%= button_to 'Delete', @music, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %>
+<%= link_to 'Back', musics_path, class: 'btn btn-secondary' %>

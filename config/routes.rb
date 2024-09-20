@@ -11,7 +11,7 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   # root "posts#index"
-  resources :musics, only: [:index, :new, :create]
+  resources :musics
 
   root 'musics#index'  # Set the root path to the index action of MusicsController
 end

@@ -7,7 +7,7 @@
     <%= csp_meta_tag %>
     
     <%= stylesheet_link_tag 'application', media: 'all' %>
-    <%= javascript_include_tag 'application' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
     
   </head>
 
@@ -54,6 +54,6 @@
     <div class="container mt-4">
       <%= yield %>
     </div>
-    
+    <%= javascript_include_tag 'application', 'data-turbo-track': 'reload' %>
   </body>
 </html>

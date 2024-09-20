@@ -1,35 +1,21 @@
-<h1>Upload Music</h1>
-
-<%= form_with(model: Music.new, local: true) do |form| %>
-  <% if @music.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@music.errors.count, "error") %> prohibited this music from being saved:</h2>
-
-      <ul>
-      <% @music.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
+<div class="container mt-5">
+  <h1 class="text-center text-primary mb-4">Upload a song to get recommendations</h1>
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <div class="card shadow-sm p-4">
+        <%= form_with model: @music, local: true, html: { multipart: true } do |form| %>
+          <div class="mb-3">
+            <%= form.file_field :file, class: "form-control", placeholder: "Choose your music file" %>
+          </div>
+          <div class="d-grid gap-2">
+            <%= form.submit "Analyze", class: "btn btn-primary" %>
+          </div>
+        <% end %>
+      </div>
     </div>
-  <% end %>
-
-  <div class="field">
-    <%= form.label :title %>
-    <%= form.text_field :title %>
   </div>
+</div>
 
-  <div class="field">
-    <%= form.label :artist %>
-    <%= form.text_field :artist %>
-  </div>
-
-  <div class="field">
-    <%= form.label :file %>
-    <%= form.file_field :file %>
-  </div>
-
-  <div class="actions">
-    <%= form.submit %>
-  </div>
-<% end %>
-
+<footer class="bg-dark text-light mt-5 p-3 text-center">
+  <p>&copy; 2024 MusicAnalyser. All rights reserved.</p>
+</footer>

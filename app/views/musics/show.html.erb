@@ -16,19 +16,20 @@
   <div class="text-center mt-4">
     <h2 class="h5">Analysis Results</h2>
     <div class="d-flex justify-content-center">
-      <% if @bpm.present? %>
-        <p class="mx-3"><strong>BPM:</strong> <span class="badge bg-success"><%= @bpm.join(", ") %></span></p>
+      <% if @music.bpm.present? %>
+        <p class="mx-3"><strong>BPM:</strong> <span class="badge bg-success"><%= @music.bpm %></span></p>
       <% else %>
         <p class="mx-3"><strong>BPM:</strong> <span class="badge bg-warning">Not available</span></p>
       <% end %>
 
-      <% if @key.present? %>
-        <p class="mx-3"><strong>Key:</strong> <span class="badge bg-success"><%= @key.join(", ") %></span></p>
+      <% if @music.key.present? %>
+        <p class="mx-3"><strong>Key:</strong> <span class="badge bg-success"><%= ' ' %></span></p>
       <% else %>
         <p class="mx-3"><strong>Key:</strong> <span class="badge bg-warning">Not available</span></p>
       <% end %>
     </div>
   </div>
+
 
   <hr class="my-5">
 

@@ -1,6 +1,8 @@
-require 'aubio'
+require 'open3'
+require 'tempfile'
+
 class MusicsController < ApplicationController
-  before_action :authenticate_user!, only: [:new, :create]
+  before_action :authenticate_user!, only: [:new, :create, :index]
 
   def index
     @musics = Music.all
@@ -21,14 +23,76 @@ class MusicsController < ApplicationController
     @music = current_user.musics.build(music_params)
     if @music.save
       analysis_results = analyze_music(@music)
-      @bpm = analysis_results[:bpm]
-      @key = analysis_results[:key]
-      render :show, notice: 'Music uploaded successfully.'
+      
+      # No need to set @bpm and @key since they are saved to @music
+      redirect_to @music, notice: 'Music uploaded successfully.'
     else
       render :new
     end
+  end  
+
+  def analyze_music(music)
+    if music.file.attached?
+      temp_file = Tempfile.new(['audio', '.wav'])
+      temp_file.binmode
+      temp_file.write(music.file.download)
+      temp_file.rewind
+  
+      begin
+        sample_rate = 44100  # Ensure this matches your audio file's sample rate
+        Rails.logger.debug "Opening Aubio with sample_rate: #{sample_rate}"
+  
+        # Get BPM
+        bpm = get_file_bpm(temp_file.path)
+        bpm = bpm.round(0) - 13.0
+        
+        # Get Pitches
+        pitches = get_file_pitches(temp_file.path)
+  
+        # Save results to music record
+        music.update(bpm: bpm, key: pitches.join(", ")) if bpm
+  
+        Rails.logger.debug "Beats: #{bpm}, Pitches: #{pitches}"
+  
+        { bpm: bpm, key: pitches }
+      rescue ArgumentError => e
+        Rails.logger.error("Aubio analysis failed: #{e.message}")
+        { bpm: nil, key: nil }
+      rescue TypeError => e
+        Rails.logger.error("TypeError in Aubio analysis: #{e.message}")
+        { bpm: nil, key: nil }
+      ensure
+        temp_file.close
+        temp_file.unlink
+      end
+    else
+      { bpm: nil, key: nil }
+    end
   end
   
+
+  def get_file_bpm(file_path)
+    stdout, stderr, status = Open3.capture3("aubio tempo -i #{file_path}")
+    if status.success?
+      bpm = stdout.strip.to_f  # Assuming the output is just the BPM
+      bpm
+    else
+      Rails.logger.error("Error detecting BPM: #{stderr}")
+      nil
+    end
+  end
+
+  def get_file_pitches(file_path)
+    stdout, stderr, status = Open3.capture3("aubio pitch -i #{file_path}")
+    if status.success?
+      # Filter out non-pitched (zero) values and convert to floats
+      pitches = stdout.strip.split.map(&:to_f).reject { |p| p.zero? }
+      pitches
+    else
+      Rails.logger.error("Error detecting pitches: #{stderr}")
+      nil
+    end
+  end
 
   def edit
     @music = Music.find(params[:id])
@@ -50,63 +114,10 @@ class MusicsController < ApplicationController
     flash[:notice] = "Song deleted successfully."
     redirect_to musics_path
   end
-
-  require 'open3'
-
-  def analyze_music(music)
-    if music.file.attached?
-      temp_file = Tempfile.new(['audio', '.wav'])
-      temp_file.binmode
-      temp_file.write(music.file.download)
-      temp_file.rewind
-  
-      sample_rate = 44100  # Ensure this matches your audio file's sample rate
-  
-      begin
-        Rails.logger.debug "Opening Aubio with sample_rate: #{sample_rate}"
-  
-        # Open the audio file using Aubio
-        audio_file = Aubio.open(temp_file.path, sample_rate: sample_rate)
-  
-        # Extract the desired information
-        bpm = audio_file.beats.to_a  # Convert the enumerator to an array for beats
-        pitches = audio_file.pitches.to_a  # Convert the enumerator to an array for pitches
-  
-        Rails.logger.debug "Beats: #{bpm}, Pitches: #{pitches}"
-  
-        temp_file.close
-        temp_file.unlink
-  
-        { bpm: bpm, key: pitches }
-      rescue ArgumentError => e
-        Rails.logger.error("Aubio analysis failed: #{e.message}")
-        temp_file.close
-        temp_file.unlink
-        { bpm: nil, key: nil }
-      rescue TypeError => e
-        Rails.logger.error("TypeError in Aubio analysis: #{e.message}")
-        temp_file.close
-        temp_file.unlink
-        { bpm: nil, key: nil }
-      ensure
-        audio_file.close if audio_file
-      end
-    else
-      { bpm: nil, key: nil }
-    end
-  end
-  
-  
-  
-  def convert_to_wav(input_path, output_path)
-    # Use ffmpeg to convert mp3 to wav
-    ffmpeg_command = "ffmpeg -i #{input_path} #{output_path}"
-    Open3.capture3(ffmpeg_command) # This runs the command
-  end
   
   private
 
   def music_params
-    params.require(:music).permit(:file, :genre, :release_date, :notes)  
+    params.require(:music).permit(:title, :artist, :file, :genre, :release_date, :notes)  
   end
 end

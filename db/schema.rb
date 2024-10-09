@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_10_09_141508) do
+ActiveRecord::Schema[7.1].define(version: 2024_10_09_160523) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -48,6 +48,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_10_09_141508) do
     t.string "genre"
     t.date "release_date"
     t.text "notes"
+    t.float "bpm"
+    t.string "key"
     t.index ["user_id"], name: "index_musics_on_user_id"
   end
 

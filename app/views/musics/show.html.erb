@@ -1,24 +1,50 @@
 <div class="container mt-5">
-  <h1 class="text-center mb-4"><%= @music.title %></h1>
-  <p class="text-center">Uploaded by: <strong><%= @music.user.name %></strong></p>
-  <p class="text-center">
-    File: <%= link_to 'Download', rails_blob_path(@music.file, disposition: 'attachment'), class: 'btn btn-link' %>
-  </p>
+  <h1 class="text-center mb-4 display-4" style="color: #4A4A4A; border-bottom: 2px solid #4A4A4A; padding-bottom: 10px;">
+    <i class="fas fa-music" style="color: #4A4A4A; margin-right: 10px;"></i>
+    <%= @music.title %>
+  </h1>
+  
+  <p class="text-center text-muted mb-4">Uploaded by: <strong><%= @music.user.name %></strong></p>
+  
+  <div class="text-center mb-4">
+    <p>
+      <%= link_to 'Download', rails_blob_path(@music.file, disposition: 'attachment'), class: 'btn btn-outline-primary btn-lg' %>
+    </p>
+  </div>
 
   <%# Display the analyzed BPM and Key %>
   <div class="text-center mt-4">
-    <% if @bpm.present? %>
-      <p><strong>BPM:</strong> <%= @bpm.join(", ") %></p>
-    <% else %>
-      <p><strong>BPM:</strong> Not available</p>
-    <% end %>
+    <h2 class="h5">Analysis Results</h2>
+    <div class="d-flex justify-content-center">
+      <% if @bpm.present? %>
+        <p class="mx-3"><strong>BPM:</strong> <span class="badge bg-success"><%= @bpm.join(", ") %></span></p>
+      <% else %>
+        <p class="mx-3"><strong>BPM:</strong> <span class="badge bg-warning">Not available</span></p>
+      <% end %>
 
-    <% if @key.present? %>
-      <p><strong>Key:</strong> <%= @key.join(", ") %></p>
-    <% else %>
-      <p><strong>Key:</strong> Not available</p>
-    <% end %>
+      <% if @key.present? %>
+        <p class="mx-3"><strong>Key:</strong> <span class="badge bg-success"><%= @key.join(", ") %></span></p>
+      <% else %>
+        <p class="mx-3"><strong>Key:</strong> <span class="badge bg-warning">Not available</span></p>
+      <% end %>
+    </div>
   </div>
+
+  <hr class="my-5">
+
+  <div class="text-center mt-4">
+    <h2>Additional Information</h2>
+    <p class="text-muted">Here you can provide more details about the song, like its genre, release date, and any additional notes that might be relevant.</p>
+    <div class="card mx-auto" style="max-width: 400px; border-radius: 15px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item"><strong>Genre:</strong> <%= @music.genre || 'Not specified' %></li>
+        <li class="list-group-item"><strong>Release Date:</strong> <%= @music.release_date || 'Not specified' %></li>
+        <li class="list-group-item"><strong>Notes:</strong> <%= @music.notes || 'No additional notes' %></li>
+      </ul>
+    </div>
+  </div>
+
+  <hr class="my-5">
 
   <div class="d-flex justify-content-center mt-4">
     <%= link_to 'Edit', edit_music_path(@music), class: 'btn btn-warning me-2' %>
@@ -26,3 +52,7 @@
     <%= link_to 'Back', musics_path, class: 'btn btn-secondary' %>
   </div>
 </div>
+
+<footer class="bg-dark text-light mt-5 p-4 text-center" style="border-top: 2px solid #ccc;">
+  <p>&copy; 2024 Music Analyser. All rights reserved.</p>
+</footer>

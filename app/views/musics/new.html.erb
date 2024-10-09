@@ -1,19 +1,101 @@
+<%= javascript_include_tag 'analyze', 'data-turbo-track': 'reload' %>
+
 <div class="container mt-5">
-  <h1 class="text-center custom-title mb-4">Upload a song to get recommendations</h1>
+  <h1 class="text-center custom-title mb-4">Upload a Song to Get Recommendations</h1>
+  
+  <div class="row justify-content-center mb-4">
+    <div class="col-md-8">
+      <div class="alert alert-info" role="alert">
+        <strong>Welcome to Music Analyser!</strong> Upload your music file to receive personalized recommendations and insights. 
+        <br> <em>Supported formats: MP3, WAV, FLAC.</em>
+      </div>
+    </div>
+  </div>
+  
   <div class="row justify-content-center">
     <div class="col-md-6">
       <div class="card shadow-sm p-4">
         <%= form_with model: @music, local: true, html: { multipart: true } do |form| %>
           <div class="mb-3">
-            <%= form.file_field :file, class: "form-control", placeholder: "Choose your music file" %>
+            <%= form.file_field :file, class: "form-control", placeholder: "Choose your music file", id: "fileInput" %>
           </div>
           <div class="d-grid gap-2">
-            <%= form.submit "Analyze", class: "btn btn-primary" %>
+            <%= form.submit "Analyze", class: "btn btn-primary", id: "analyzeButton", disabled: true %>
           </div>
         <% end %>
       </div>
     </div>
   </div>
+
+  <hr class="my-5">
+  
+  <div class="row">
+    <div class="col-md-8 mx-auto">
+      <h2 class="text-center mb-4">Why Use Music Analyser?</h2>
+      <ul class="list-group">
+        <li class="list-group-item">🎧 Get recommendations based on your taste.</li>
+        <li class="list-group-item">📊 Analyze tempo, key, and other vital statistics.</li>
+        <li class="list-group-item">📈 Track your listening habits over time.</li>
+      </ul>
+    </div>
+  </div>
+
+  <hr class="my-5">
+
+  <div class="row">
+    <div class="col-md-8 mx-auto">
+      <h2 class="text-center mb-4">User Testimonials</h2>
+      <div class="card mb-3">
+        <div class="card-body">
+          <p class="card-text"><strong>Jane Doe:</strong> "Music Analyser changed the way I listen to music. The insights are invaluable!"</p>
+        </div>
+      </div>
+      <div class="card mb-3">
+        <div class="card-body">
+          <p class="card-text"><strong>John Smith:</strong> "I love how easy it is to upload and get recommendations tailored to my taste!"</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <hr class="my-5">
+  
+  <div class="row">
+    <div class="col-md-8 mx-auto">
+      <h2 class="text-center mb-4">Frequently Asked Questions</h2>
+      
+      <div class="row">
+        <div class="col-md-12 mb-3">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">What types of files can I upload?</h5>
+              <p class="card-text">You can upload MP3, WAV, and FLAC files for analysis.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-12 mb-3">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">How long does it take to analyze my music?</h5>
+              <p class="card-text">The analysis process typically takes a few seconds, depending on the size of your file.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-12 mb-3">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Is my music private?</h5>
+              <p class="card-text">Absolutely! Your uploads are not shared and are kept confidential.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+
 </div>
 
 <footer class="bg-dark text-light mt-5 p-3 text-center">

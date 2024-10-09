@@ -1,86 +1,181 @@
 @import "bootstrap";
 
+/* Hero Section */
 .hero {
   background-image: url('path/to/your/image.jpg');
   background-size: cover;
   background-position: center;
-  height: 400px;
-  color: white;
+  height: 500px;
   display: flex;
-  flex-direction: column;
   justify-content: center;
   align-items: center;
-  text-align: center;
   position: relative;
 }
 
-.hero .overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
-  z-index: 1;
+.hero-overlay {
+  background-color: rgba(0, 0, 0, 0.6);
+  padding: 50px;
+  text-align: center;
+  border-radius: 10px;
+  animation: fadeInHero 1.5s ease-in-out;
 }
 
-.hero h1, .hero p, .hero a {
-  z-index: 2;
+.hero-title {
+  font-size: 3.5rem;
+  font-weight: bold;
+  color: #fff;
+  margin-bottom: 20px;
+  animation: slideIn 1s ease-in forwards 0.5s;
 }
 
+.hero-text {
+  font-size: 1.8rem;
+  color: #fff;
+  margin-bottom: 30px;
+  animation: slideIn 1s ease-in forwards 1s;
+}
+
+.hero-button {
+  animation: fadeInButton 1.2s ease-in forwards 1.5s;
+  padding: 10px 30px;
+  font-size: 1.2rem;
+  border-radius: 30px;
+}
+
+/* Features Section */
 .features {
-  padding: 40px 0;
-  background-color: #f4f4f4;
+  padding: 60px 0;
+  background-color: #f0f8ff;
+  animation: fadeIn 1.5s ease-in-out;
+}
+
+.features-title {
+  font-size: 2.5rem;
+  margin-bottom: 50px;
+  font-weight: 700;
+  color: #333;
 }
 
 .feature-item {
-  margin: 20px 0;
+  margin-bottom: 40px;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s, box-shadow 0.3s;
+  color: #fff;
+}
+
+/* Adding different background colors for each feature item */
+.feature-item:nth-child(1) {
+  background-color: #51a4f7;
+}
+
+.feature-item:nth-child(2) {
+  background-color: #f7a951;
+}
+
+.feature-item:nth-child(3) {
+  background-color: #f7517a;
+}
+
+.feature-item:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
 }
 
 .feature-item i {
-  color: #51a4f7;
+  font-size: 4rem;
 }
 
+/* Upload Form Animations */
+.container {
+  animation: fadeInContainer 1.5s ease-in-out;
+}
+
+.custom-title {
+  font-size: 2.5rem;
+  font-weight: bold;
+  color: #333;
+  animation: fadeInTitle 1.2s ease-in-out forwards;
+}
+
+.card {
+  border-radius: 15px;
+  animation: slideUpCard 1.5s ease-in-out forwards;
+}
+
+.form-control,
+.btn {
+  opacity: 0;
+  animation: fadeInInput 1.5s ease-in-out forwards;
+}
+
+@keyframes fadeInContainer {
+  0% {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInTitle {
+  0% {
+    opacity: 0;
+    transform: translateY(-50px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideUpCard {
+  0% {
+    opacity: 0;
+    transform: translateY(50px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInInput {
+  0% {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Footer */
 footer {
   background-color: #222;
   color: #fff;
-  padding: 1rem 0;
+  padding: 20px;
+  animation: fadeIn 1.5s ease-in-out;
+}
+.card {
+  border-radius: 10px;
+  transition: transform 0.2s, box-shadow 0.2s;
 }
 
-.btn-primary {
-  background-color: #51a4f7;
-  border-color: #51a4f7;
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
 }
 
-.btn-primary:hover {
-  background-color: #3a83c0;
-  border-color: #3a83c0;
-}
-
-.table {
-  background-color: #f9f9f9;
-}
-
-.table thead {
-  background-color: #51a4f7;
-  color: #fff;
-}
-
-.table-hover tbody tr:hover {
-  background-color: #e9ecef;
-}
-
-.btn-info {
-  background-color: #51a4f7;
-  border-color: #51a4f7;
-}
-
-.btn-info:hover {
-  background-color: #3a83c0;
-  border-color: #3a83c0;
-}
-
-h1 {
-  font-weight: bold;
+.card-title {
+  font-size: 1.25rem;
   color: #333;
+}
+
+.card-text {
+  color: #555;
 }

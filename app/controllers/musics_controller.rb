@@ -107,6 +107,6 @@ class MusicsController < ApplicationController
   private
 
   def music_params
-    params.require(:music).permit(:title, :artist, :file)
+    params.require(:music).permit(:file, :genre, :release_date, :notes)  
   end
 end

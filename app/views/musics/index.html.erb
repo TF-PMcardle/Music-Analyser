@@ -1,24 +1,30 @@
-<h1 class="text-center mb-5">Uploaded Songs</h1>
+<div class="container mt-5 animate-fade-in">
+  <h1 class="text-center custom-title mb-5">Uploaded Songs</h1>
 
-<div class="container">
-  <table class="table table-hover table-bordered">
-    <thead class="thead-dark">
-      <tr>
-        <th>Title</th>
-        <th>Artist</th>
-        <th class="text-center">Actions</th>
-      </tr>
-    </thead>
-    <tbody>
-      <% @musics.each do |music| %>
+  <div class="table-responsive animate-slide-up">
+    <table class="table table-hover table-bordered table-striped shadow-sm">
+      <thead class="table-dark">
         <tr>
-          <td><%= music.title %></td>
-          <td><%= music.artist %></td>
-          <td class="text-center">
-            <%= link_to 'View', music, class: 'btn btn-info btn-sm' %>
-          </td>
+          <th>Title</th>
+          <th>Artist</th>
+          <th class="text-center">Actions</th>
         </tr>
-      <% end %>
-    </tbody>
-  </table>
+      </thead>
+      <tbody>
+        <% @musics.each do |music| %>
+          <tr>
+            <td><%= music.title %></td>
+            <td><%= music.artist %></td>
+            <td class="text-center">
+              <%= link_to 'View', music, class: 'btn btn-info btn-sm' %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
 </div>
+
+<footer class="bg-dark text-light mt-5 p-4 text-center animate-fade-in">
+  <p>&copy; 2024 MusicAnalyser. All rights reserved.</p>
+</footer>

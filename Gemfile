@@ -7,6 +7,8 @@ gem "rails", "~> 7.1.4"
 
 gem 'devise'
 
+gem 'aubio', require: 'aubio'
+gem 'pry'
 # The original asset pipeline for Rails [https://github.com/rails/sprockets-rails]
 gem "sprockets-rails"
 

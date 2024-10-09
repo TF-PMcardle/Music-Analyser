@@ -5,10 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
-    
+
     <%= stylesheet_link_tag 'application', media: 'all' %>
-    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
-    
+    <!-- No need to load JavaScript here -->
   </head>
 
   <body>
@@ -26,6 +25,9 @@
             </li>
             <li class="nav-item">
               <a class="nav-link" href="/musics/new">Upload</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/musics">All Songs</a> <!-- New Link for Songs List -->
             </li>
           </ul>
 
@@ -54,6 +56,8 @@
     <div class="container mt-4">
       <%= yield %>
     </div>
+
+    <!-- Load JavaScript files at the bottom to ensure the DOM loads first -->
     <%= javascript_include_tag 'application', 'data-turbo-track': 'reload' %>
   </body>
 </html>

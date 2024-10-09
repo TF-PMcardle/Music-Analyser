@@ -1,11 +1,12 @@
-<h1 class="text-center">Uploaded Songs</h1>
+<h1 class="text-center mb-5">Uploaded Songs</h1>
+
 <div class="container">
-  <table class="table">
-    <thead>
+  <table class="table table-hover table-bordered">
+    <thead class="thead-dark">
       <tr>
         <th>Title</th>
         <th>Artist</th>
-        <th>Actions</th>
+        <th class="text-center">Actions</th>
       </tr>
     </thead>
     <tbody>
@@ -13,8 +14,8 @@
         <tr>
           <td><%= music.title %></td>
           <td><%= music.artist %></td>
-          <td>
-            <%= link_to 'View', music, class: 'btn btn-info' %>
+          <td class="text-center">
+            <%= link_to 'View', music, class: 'btn btn-info btn-sm' %>
           </td>
         </tr>
       <% end %>

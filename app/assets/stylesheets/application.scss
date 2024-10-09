@@ -1,15 +1,86 @@
 @import "bootstrap";
 
-body {
-  font-family: 'Roboto', sans-serif;
+.hero {
+  background-image: url('path/to/your/image.jpg');
+  background-size: cover;
+  background-position: center;
+  height: 400px;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  position: relative;
 }
 
-h1 {
-  font-weight: 700;
+.hero .overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1;
+}
+
+.hero h1, .hero p, .hero a {
+  z-index: 2;
+}
+
+.features {
+  padding: 40px 0;
+  background-color: #f4f4f4;
+}
+
+.feature-item {
+  margin: 20px 0;
+}
+
+.feature-item i {
+  color: #51a4f7;
 }
 
 footer {
   background-color: #222;
   color: #fff;
   padding: 1rem 0;
+}
+
+.btn-primary {
+  background-color: #51a4f7;
+  border-color: #51a4f7;
+}
+
+.btn-primary:hover {
+  background-color: #3a83c0;
+  border-color: #3a83c0;
+}
+
+.table {
+  background-color: #f9f9f9;
+}
+
+.table thead {
+  background-color: #51a4f7;
+  color: #fff;
+}
+
+.table-hover tbody tr:hover {
+  background-color: #e9ecef;
+}
+
+.btn-info {
+  background-color: #51a4f7;
+  border-color: #51a4f7;
+}
+
+.btn-info:hover {
+  background-color: #3a83c0;
+  border-color: #3a83c0;
+}
+
+h1 {
+  font-weight: bold;
+  color: #333;
 }

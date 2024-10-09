@@ -17,4 +17,12 @@ class Music < ApplicationRecord
     self.artist = parts[0] if artist.blank?
     self.title = parts[1] if title.blank? && parts.length > 1
   end
+
+  class AddBpmAndKeyToMusics < ActiveRecord::Migration[7.1]
+    def change
+      add_column :musics, :bpm, :float
+      add_column :musics, :key, :string
+    end
+  end
+  
 end

@@ -3,6 +3,10 @@ Rails.application.routes.draw do
   get 'musics/new'
   get 'musics/create'
   devise_for :users
+
+  devise_scope :user do  
+    get '/users/sign_out' => 'devise/sessions#destroy'     
+  end
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
@@ -13,6 +17,8 @@ Rails.application.routes.draw do
   # root "posts#index"
   resources :musics
 
-  root 'musics#index'  # Set the root path to the index action of MusicsController
-end
+  root 'musics#home'  # Change the root path to the new home action
 
+  get 'test_aubio', to: 'musics#test_aubio'
+
+end

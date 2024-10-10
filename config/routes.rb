@@ -20,5 +20,4 @@ Rails.application.routes.draw do
   root 'musics#home'  # Change the root path to the new home action
 
   get 'test_aubio', to: 'musics#test_aubio'
-
 end

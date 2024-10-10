@@ -23,7 +23,7 @@
       <% end %>
 
       <% if @music.key.present? %>
-        <p class="mx-3"><strong>Key:</strong> <span class="badge bg-success"><%= ' ' %></span></p>
+        <p class="mx-3"><strong>Key:</strong> <span class="badge bg-success"><%= @music.key %></span></p>
       <% else %>
         <p class="mx-3"><strong>Key:</strong> <span class="badge bg-warning">Not available</span></p>
       <% end %>

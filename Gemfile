@@ -8,9 +8,14 @@ gem "rails", "~> 7.1.4"
 gem 'devise'
 
 gem 'aubio', require: 'aubio'
+gem 'rspotify'
 gem 'pry'
 # The original asset pipeline for Rails [https://github.com/rails/sprockets-rails]
 gem "sprockets-rails"
+
+gem 'mime-types', '~> 3.0'
+
+gem 'omniauth-spotify'
 
 # Use sqlite3 as the database for Active Record
 gem "sqlite3", ">= 1.4"

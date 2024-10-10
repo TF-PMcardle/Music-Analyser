@@ -24,7 +24,6 @@ class MusicsController < ApplicationController
     if @music.save
       analysis_results = analyze_music(@music)
       
-      # No need to set @bpm and @key since they are saved to @music
       redirect_to @music, notice: 'Music uploaded successfully.'
     else
       render :new
@@ -53,8 +52,6 @@ class MusicsController < ApplicationController
   
         # Save results to music record
         music.update(bpm: bpm, key: key) if bpm
-  
-        Rails.logger.debug "Beats: #{bpm}, Pitches: #{pitches}"
   
         { bpm: bpm, key: pitches }
       rescue ArgumentError => e
@@ -90,7 +87,6 @@ class MusicsController < ApplicationController
     return "Unknown" unless most_common_note
   
     # Determine major or minor (for simplicity, using a basic assumption)
-    # You could expand this to detect the mode more accurately
     key_name = note_names[most_common_note]
     is_minor = determine_if_minor(pitches)
   
@@ -98,7 +94,7 @@ class MusicsController < ApplicationController
     key_name
   end
   
-  # Method to heuristically determine if the key is minor (you can improve this)
+  # Method to heuristically determine if the key is minor
   def determine_if_minor(pitches)
     # For simplicity, assume keys are minor if lower pitch frequencies dominate
     # More advanced detection may use other harmonic information
